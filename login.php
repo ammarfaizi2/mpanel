@@ -44,6 +44,7 @@ class Login
 	public function destroy()
 	{
 		$session = Teacrypt::decrypt($_COOKIE['login'], self::APPKEY);
+		setcookie("login", null, 0);
 		return unlink(SESSPATH.$session.".json");
 	}
 
