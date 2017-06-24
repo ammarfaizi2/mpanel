@@ -1,7 +1,7 @@
 {
 	"password":"poi",
 	"last_login":"",
-	"document_root":"../files",
+	"document_root":"/home/moepoi",
 	"domain":[
 		"http:\/\/moepoi.panel.moe\/"
 	]
