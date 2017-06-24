@@ -1,6 +1,14 @@
 <?php
+require __DIR__ . "/../login.php";
+$l = new Login();
+if (!(isset($_COOKIE['login']) and $l->session())) {
+	http_response_code(403);
+	header("Content-type:application/json");
+	print json_encode(["error"=>"403 Forbidden"]);
+	die;
+}
 
-error_reporting(0); // Set E_ALL for debuging
+error_reporting(E_ALL); // Set E_ALL for debuging
 
 // load composer autoload before load elFinder autoload If you need composer
 //require './vendor/autoload.php';
@@ -98,7 +106,7 @@ $opts = array(
 		// Items volume
 		array(
 			'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
-			'path'          => '../files/',                 // path to files (REQUIRED)
+			'path'          => $l->udata['document_root'],                 // path to files (REQUIRED)
 			'URL'           => dirname($_SERVER['PHP_SELF']) . '/../files/', // URL to files (REQUIRED)
 			'trashHash'     => 't1_Lw',                     // elFinder's hash of trash folder
 			'winHashFix'    => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
@@ -107,18 +115,18 @@ $opts = array(
 			'uploadOrder'   => array(),      // allowed Mimetype `image` and `text/plain` only
 			'accessControl' => ''                     // disable and hide dot starting files (OPTIONAL)
 		),
-		// Trash volume
+		/// Trash volume
 		array(
 			'id'            => '1',
 			'driver'        => 'Trash',
-			'path'          => '../files/.trash/',
-			'tmbURL'        => dirname($_SERVER['PHP_SELF']) . '/../files/.trash/.tmb/',
+			'path'          => realpath(__DIR__."/.."),
+			'tmbURL'        => '',
 			'winHashFix'    => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
-			'uploadDeny'    => array('all'),                // Recomend the same settings as the original volume that uses the trash
-			'uploadAllow'   => array('image', 'text/plain'),// Same as above
-			'uploadOrder'   => array('deny', 'allow'),      // Same as above
-			'accessControl' => 'access',                    // Same as above
-		)
+			'uploadDeny'    => array(),                // Recomend the same settings as the original volume that uses the trash
+			'uploadAllow'   => array(),				// Same as above
+			'uploadOrder'   => array(),      		// Same as above
+			'accessControl' => '',                    // Same as above
+		)//*/
 	)
 );
 
