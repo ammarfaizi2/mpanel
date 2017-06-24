@@ -13,7 +13,7 @@
 </head>
 <body>
 	<center>
-		<h2>Welcome to IceTea Panel</h2>
+		<h2>Welcome to IceTea Panel V.0.0.1</h2>
 		<div class="menu">
 			<a href="adminer.php"><button class="btn">Adminer</button></a>
 			<a href="logout.php"><button class="btn">Logout</button></a>
