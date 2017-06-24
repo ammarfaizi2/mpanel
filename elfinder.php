@@ -24,6 +24,7 @@
 		<h2>Welcome to IceTea Panel</h2>
 		<div class="menu">
 			<a href="adminer.php"><button class="btn">Adminer</button></a>
+			<a href="logout.php"><button class="btn">Logout</button></a>
 		</div>
 		<!-- Element where elFinder will be created (REQUIRED) -->
 		<div id="elfinder"></div>

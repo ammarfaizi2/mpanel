@@ -41,6 +41,12 @@ class Login
 		return false;
 	}
 
+	public function destroy()
+	{
+		$session = Teacrypt::decrypt($_COOKIE['login'], self::APPKEY);
+		return unlink(SESSPATH.$session.".json");
+	}
+
 	public function login_action()
 	{
 		if (isset($_POST['login'])) {
@@ -63,7 +69,8 @@ class Login
 		file_put_contents(SESSPATH.$session.".json", json_encode([
 				"username" => $user,
 				"login_at" => date("Y-m-d H:i:s"),
-				"expired_at" => date("Y-m-d H:i:s", $exp)
+				"expired_at"=> date("Y-m-d H:i:s", $exp),
+				"useragent" => $_SERVER['HTTP_USER_AGENT']
 			], 128));
 		setcookie("login", Teacrypt::encrypt($session, self::APPKEY), $exp);
 	}
