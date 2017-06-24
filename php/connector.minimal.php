@@ -107,7 +107,7 @@ $opts = array(
 		array(
 			'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
 			'path'          => $l->udata['document_root'],                 // path to files (REQUIRED)
-			'URL'           => dirname($_SERVER['PHP_SELF']) . '/../files/', // URL to files (REQUIRED)
+			'URL'           => "https://www.crayner.cf/", // URL to files (REQUIRED)
 			'trashHash'     => 't1_Lw',                     // elFinder's hash of trash folder
 			'winHashFix'    => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
 			'uploadDeny'    => array(),                // All Mimetypes not allowed to upload
@@ -119,14 +119,14 @@ $opts = array(
 		array(
 			'id'            => '1',
 			'driver'        => 'Trash',
-			'path'          => realpath(__DIR__."/.."),
-			'tmbURL'        => '',
+			'path'          => __DIR__."/../files/.trash",
+			'tmbURL'        => __DIR__."/../files/.trash/.tmb",
 			'winHashFix'    => DIRECTORY_SEPARATOR !== '/', // to make hash same to Linux one on windows too
-			'uploadDeny'    => array(),                // Recomend the same settings as the original volume that uses the trash
-			'uploadAllow'   => array(),				// Same as above
-			'uploadOrder'   => array(),      		// Same as above
-			'accessControl' => '',                    // Same as above
-		)//*/
+			'uploadDeny'    => array(),                		// Recomend the same settings as the original volume that uses the trash
+			'uploadAllow'   => array(),						// Same as above
+			'uploadOrder'   => array(),      				// Same as above
+			'accessControl' => '',                    		// Same as above
+		)
 	)
 );
 
