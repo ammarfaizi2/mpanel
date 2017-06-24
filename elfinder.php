@@ -14,13 +14,16 @@
 		.menu{
 			margin-bottom: 35px;
 		}
+		.btn{
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
 	<center>
 		<h2>Welcome to IceTea Panel</h2>
 		<div class="menu">
-			<a href="adminer.php"><button>Adminer</button></a>
+			<a href="adminer.php"><button class="btn">Adminer</button></a>
 		</div>
 		<!-- Element where elFinder will be created (REQUIRED) -->
 		<div id="elfinder"></div>
