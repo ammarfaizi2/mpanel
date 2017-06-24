@@ -1,5 +1,12 @@
 <?php
-
+require __DIR__ . "/../login.php";
+$l = new Login();
+if (!(isset($_COOKIE['login']) and $l->session())) {
+	http_response_code(403);
+	header("Content-type:application/json");
+	print json_encode(["error"=>"403 Forbidden"]);
+	die;
+}
 error_reporting(0); // Set E_ALL for debuging
 
 // load composer autoload before load elFinder autoload If you need composer
@@ -97,7 +104,7 @@ $opts = array(
 		// Items volume
 		array(
 			'driver'        => 'LocalFileSystem',           // driver for accessing file system (REQUIRED)
-'path'          => "/home/moepoi",                 // path to files (REQUIRED)
+			'path'          => $l->udata['document_root'],                 // path to files (REQUIRED)
 			'URL'           => "", // URL to files (REQUIRED)
 			'trashHash'     => 't1_Lw',                     // elFinder's hash of trash folder
 			'uploadDeny'    => array(),                // All Mimetypes not allowed to upload

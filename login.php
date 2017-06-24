@@ -1,35 +1,71 @@
 <?php
-if (isset($_POST['login'])) {
-	if (!file_exists(__DIR__."/account/".strtolower($_POST['username']).".txt")) {
-		$login = false;
-	} elseif (file_get_contents(__DIR__."/account/".strtolower($_POST['username']).".txt") === $_POST['password']) {
-		$login = true;
-	} else {
-		$login = false;
+require __DIR__."/Teacrypt.php";
+define("ACPATH", __DIR__."/account/");
+define("SESSPATH", __DIR__."/session/");
+class Login
+{
+	/**
+	 * APPKEY
+	 */
+	const APPKEY = "crayner";
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct()
+	{
+		
 	}
-} else {
-	$login = false;
+
+	public function session()
+	{
+		if (isset($_COOKIE['login'])) {
+			$session = Teacrypt::decrypt($_COOKIE['login'], self::APPKEY);
+			if (file_exists(SESSPATH.$session.".json")) {
+				$a = json_decode(file_get_contents(SESSPATH.$session.".json"), 1);
+				if (strtotime($a['expired_at']) <= time()) {
+					unlink(SESSPATH.$session.".json");
+					setcookie("login", null, 0);
+					return false;
+				} else {
+					$this->udata = json_decode(file_get_contents(ACPATH."{$a['username']}.json"), 1);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public function login_action()
+	{
+		if (isset($_POST['login'])) {
+			if (file_exists(ACPATH.$_POST['username'].".json")) {
+				$a = json_decode(file_get_contents(ACPATH.$_POST['username'].".json"), 1);
+				if ($a['password'] === $_POST['password']) {
+					$this->make_session($_POST['username']);
+					return true;
+				}
+			}
+			return false;
+		}
+		return $this->session();
+	}
+
+	public function make_session($user)
+	{
+		$exp = time()+(3600*24);
+		$session = "{$user}_".md5($_SERVER['HTTP_USER_AGENT']);
+		file_put_contents(SESSPATH.$session.".json", json_encode([
+				"username" => $user,
+				"login_at" => date("Y-m-d H:i:s"),
+				"expired_at" => date("Y-m-d H:i:s", $exp)
+			], 128));
+		setcookie("login", Teacrypt::encrypt($session, self::APPKEY), $exp);
+	}
+
+	public function view()
+	{
+		require __DIR__."/login.html";
+	}
+
 }
-if ($login) {
-	setcookie("login", base64_encode(Teacrypt::encrypt($_POST['username'], "crayner")), time()+7200);
-	header("location:?ref=login");
-	die;
-}
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login</title>
-</head>
-<body>
-<center>
-	<form method="post" action="">
-		<label>Username : </label><br>
-		<input type="text" name="username"><br><br>
-		<label>Password : </label><br>
-		<input type="password" name="password"><br><br>
-		<input type="submit" name="login" value="login">
-	</form>
-</center>
-</body>
-</html>

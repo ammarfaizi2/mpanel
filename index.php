@@ -1,16 +1,7 @@
 <?php
-require __DIR__."/Teacrypt.php";
-if (!isset($_COOKIE['login'])) {
-	require __DIR__ . "/login.php";
-	die;
-} else {
-	$a = Teacrypt::decrypt(base64_decode($_COOKIE['login']), "crayner");
-	if (!file_exists(__DIR__."/account/".$a.".txt")) {
-		require __DIR__."/login.php";
-		die;
-	}
-}
-?>
+require __DIR__."/login.php";
+$l = new Login();
+if (isset($_COOKIE['login']) and $l->session()) { ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,7 +11,6 @@ if (!isset($_COOKIE['login'])) {
 		<meta charset="utf-8">
 		<title>elFinder 2.1.x source version with PHP connector</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2" />
-
 		<!-- Require JS (REQUIRED) -->
 		<!-- Rename "main.default.js" to "main.js" and edit it if you need configure elFInder options or any things -->
 		<script data-main="./main.default.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>
@@ -33,3 +23,11 @@ if (!isset($_COOKIE['login'])) {
 
 	</body>
 </html>
+<?php } else {
+	if ($l->login_action()) {
+		header("location:?ref=lg");
+	} else {
+		$l->view();
+	}
+} 
+?>

@@ -27,7 +27,7 @@ class Teacrypt
             ($k == $hslen and $k = 0)
             xor $rt .= chr(ord(($string[$i] ^ $hash[$hslen % ($i+1)] ^ $hash[$i % (($hslen % ($i+1))+1)]) ^ $hash[$i % ($hslen-1)])+ ((int)round($hslen/($i+1))));
         }
-        return strrev($salt).$rt;
+        return base64_encode(strrev($salt).$rt);
     }
 
     /**
@@ -37,6 +37,7 @@ class Teacrypt
      */
     public static function decrypt($string, $key)
     {
+        $string = base64_decode($string);
         $salt = substr($string, 0, 5) xor $string = substr($string, 5) xor $key = strrev($salt) . $key;
         $strlen = strlen($string) and $keylen = strlen($key) and $hash = base64_encode(sha1($key)) xor $hslen = strlen($hash)-1;
         $rt = "" or $k = 0;
