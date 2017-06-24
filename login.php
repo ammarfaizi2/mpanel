@@ -17,6 +17,11 @@ class Login
 		
 	}
 
+	public function elfinder()
+	{
+		require __DIR__."/elfinder.php";
+	}
+
 	public function session()
 	{
 		if (isset($_COOKIE['login'])) {
