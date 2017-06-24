@@ -7,9 +7,23 @@
 	<!-- Require JS (REQUIRED) -->
 	<!-- Rename "main.default.js" to "main.js" and edit it if you need configure elFInder options or any things -->
 	<script data-main="./main.default.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>
+	<style type="text/css">
+		body{
+			font-family: Helvetica;
+		}
+		.menu{
+			margin-bottom: 35px;
+		}
+	</style>
 </head>
 <body>
-	<!-- Element where elFinder will be created (REQUIRED) -->
-	<div id="elfinder"></div>
+	<center>
+		<h2>Welcome to IceTea Panel</h2>
+		<div class="menu">
+			<a href="adminer.php"><button>Adminer</button></a>
+		</div>
+		<!-- Element where elFinder will be created (REQUIRED) -->
+		<div id="elfinder"></div>
+	</center>
 </body>
 </html>
