@@ -8,7 +8,7 @@ $bg = $scanbg[rand(2, 2+count($scanbg)-1)];
 <head>
 	<title>Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
-	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css?t=<?php print time(); ?>">
 	<style type="text/css">
 		body{
 			background-image: url(img/login_bg/<?php print $bg; ?>);
