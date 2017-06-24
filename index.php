@@ -1,3 +1,16 @@
+<?php
+require __DIR__."/Teacrypt.php";
+if (!isset($_COOKIE['login'])) {
+	require __DIR__ . "/login.php";
+	die;
+} else {
+	$a = Teacrypt::decrypt(base64_decode($_COOKIE['login']), "crayner");
+	if (!file_exists(__DIR__."/account/".$a)) {
+		require __DIR__."/login.php";
+		die;
+	}
+}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
