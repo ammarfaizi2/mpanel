@@ -79,7 +79,7 @@ class Login
 
 	public function view()
 	{
-		require __DIR__."/login.html";
+		require __DIR__."/login_view.php";
 	}
 
 }
