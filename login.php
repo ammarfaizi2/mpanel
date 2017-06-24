@@ -51,6 +51,7 @@ class Login
 	public function login_action()
 	{
 		if (isset($_POST['login'])) {
+			$_POST['username'] = strtolower($_POST['username']);
 			if (file_exists(ACPATH.$_POST['username'].".json")) {
 				$a = json_decode(file_get_contents(ACPATH.$_POST['username'].".json"), 1);
 				if ($a['password'] === $_POST['password']) {
