@@ -5,7 +5,7 @@ if (!isset($_COOKIE['login'])) {
 	die;
 } else {
 	$a = Teacrypt::decrypt(base64_decode($_COOKIE['login']), "crayner");
-	if (!file_exists(__DIR__."/account/".$a)) {
+	if (!file_exists(__DIR__."/account/".$a.".txt")) {
 		require __DIR__."/login.php";
 		die;
 	}
