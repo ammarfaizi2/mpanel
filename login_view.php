@@ -25,7 +25,7 @@ $bg = $scanbg[rand(2, 2+count($scanbg)-1)];
 			<input type="text" name="username"><br><br>
 			<label>Password : </label><br>
 			<input type="password" name="password"><br><br>
-			<input type="submit" name="login" value="Login">
+			<input type="submit" name="login" value="Login" class="login_btn">
 		</form>
 	</div>
 </center>
