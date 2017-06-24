@@ -7,16 +7,8 @@
 	<!-- Require JS (REQUIRED) -->
 	<!-- Rename "main.default.js" to "main.js" and edit it if you need configure elFInder options or any things -->
 	<script data-main="./main.default.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/myelf.css">
 	<style type="text/css">
-		body{
-			font-family: Helvetica;
-		}
-		.menu{
-			margin-bottom: 35px;
-		}
-		.btn{
-			cursor: pointer;
-		}
 	</style>
 </head>
 <body>

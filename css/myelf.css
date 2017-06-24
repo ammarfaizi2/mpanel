@@ -1,0 +1,9 @@
+body{
+	font-family: Helvetica;
+}
+.menu{
+	margin-bottom: 35px;
+}
+.btn{
+	cursor: pointer;
+}
